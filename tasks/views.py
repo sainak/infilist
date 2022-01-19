@@ -15,9 +15,15 @@ def task_view(request):
 
 def add_task_view(request):
     task_value = request.GET.get("task")
+    task_parent_id = request.GET.get("parent")
     task = Task(title=task_value)
     if request.user.is_authenticated:
         task.user = request.user
+    if task_parent_id:
+        try:
+            task.parent = Task.objects.get(pk=task_parent_id)
+        except Task.DoesNotExist:
+            pass
     task.save()
     return HttpResponseRedirect("/tasks/")
 
