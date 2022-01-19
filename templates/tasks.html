@@ -1,0 +1,19 @@
+<body style="margin:100px">
+
+  <h1 style="margin-bottom:75px">Welcome to the INFILIST <a href="/start_over/">Start Over ?</a> </h1>
+
+  <ul>
+    {% for task in tasks %}
+    {{ task.render_html }}
+    {% endfor %}
+  </ul>
+
+  <li> New List ?
+    <form action="/add_task/">
+      <input type="text" name="task">
+      <input type="submit" value="New Infilist">
+    </form>
+  </li>
+
+
+</body>

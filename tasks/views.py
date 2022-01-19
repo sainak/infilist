@@ -7,7 +7,9 @@ from .models import Task
 
 def task_view(request):
     search_task = request.GET.get("search")
-    tasks = Task.objects.all().filter(deleted=False, completed=False)
+    tasks = (
+        Task.objects.all().filter(deleted=False, parent=None).order_by("-created_date")
+    )
     if search_task:
         tasks = tasks.filter(title__icontains=search_task)
     return render(request, "tasks.html", {"tasks": tasks})
@@ -16,6 +18,8 @@ def task_view(request):
 def add_task_view(request):
     task_value = request.GET.get("task")
     task_parent_id = request.GET.get("parent")
+    if not task_value:
+        return HttpResponseRedirect("/tasks/")
     task = Task(title=task_value)
     if request.user.is_authenticated:
         task.user = request.user
