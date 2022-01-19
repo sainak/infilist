@@ -43,3 +43,8 @@ def complete_task_view(request, pk):
     task.completed = True
     task.save()
     return HttpResponseRedirect("/tasks/")
+
+
+def start_over_view(request):
+    Task.objects.all().delete()
+    return HttpResponseRedirect("/tasks/")
