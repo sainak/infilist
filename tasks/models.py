@@ -31,7 +31,7 @@ class Task(models.Model):
         """
         if self.completed:
             html = f"<strike>{html}</strike>"
-        html += """
+        html += f"""
         <ul>
             <li>
                 <div class="input-group mb-3">
