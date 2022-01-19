@@ -53,6 +53,17 @@
       list-style-type: none;
     }
   </style>
+  <script async>
+    let scrollState = localStorage.getItem("scroll_state");
+    document.addEventListener("DOMContentLoaded", function () {
+      if (scrollState) {
+        window.scrollTo(0, scrollState);
+      }
+    })
+    window.addEventListener("scroll", function () {
+      localStorage.setItem("scroll_state", window.scrollY);
+    });
+  </script>
 </head>
 
 <body style="margin:100px">
